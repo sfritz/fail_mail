@@ -4,9 +4,10 @@ require 'trollop'
 require 'English'
 
 opts = Trollop::options do
-  opt :from, "Sender", :type => :string, :required => true
+  opt :from, "Sender name", :type => :string, :required => true
   opt :to, "Comma separated list of recipients", :type => :string, :required => true
   opt :subject, "Subject of alert email", :type => :string, :required => true
+  opt :starttls, "Encrypt mail with STARTTLS"
 end
 
 $stdout.sync = true
@@ -21,7 +22,7 @@ if not job_exit_status.success?
   puts "  to:       #{opts[:to]}"
   puts "  subject:  #{opts[:subject]}"
   Mail.defaults do
-    delivery_method :smtp, { :enable_starttls_auto => false }
+    delivery_method :smtp, { :enable_starttls_auto => opts[:starttls] }
   end
   Mail.deliver do
     from    opts[:from]
