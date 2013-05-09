@@ -15,7 +15,7 @@ Change to this:
 0 2 * * 1-5 ./fail_mail 'ruby example.rb' --from cron --to sfritz@example.com --subject 'Example Job Failed!'
 ```
 
-Now you only get bothered when the job has a non-zero exit status.
+Now you only get bothered when the job has a non-zero exit status.  Sends stdout and stderr in the body.
 
 FROM: cron@jobbox  
 TO:   sfritz@example.com  
