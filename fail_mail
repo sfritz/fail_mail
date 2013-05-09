@@ -12,7 +12,7 @@ end
 $stdout.sync = true
 
 job_output = `#{ARGV.first} 2>&1`
-job_exit_status = $CHILD_STATUS
+job_exit_status = $CHILD_STATUS # $!
 
 if not job_exit_status.success?
   puts "Exit code: <#{job_exit_status}>"
