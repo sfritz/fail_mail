@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+require 'mail'
+require 'trollop'
+require 'English'
+
+opts = Trollop::options do
+  opt :from, "Sender", :type => :string, :required => true
+  opt :to, "Comma separated list of recipients", :type => :string, :required => true
+  opt :subject, "Subject of alert email", :type => :string, :required => true
+end
+
+$stdout.sync = true
+
+job_output = `#{ARGV.first} 2>&1`
+job_exit_status = $CHILD_STATUS
+
+if not job_exit_status.success?
+  puts "Exit code: <#{job_exit_status}>"
+  puts "Sending alert email"
+  puts "  from:     #{opts[:from]}"
+  puts "  to:       #{opts[:to]}"
+  puts "  subject:  #{opts[:subject]}"
+  Mail.defaults do
+    delivery_method :smtp, { :enable_starttls_auto => false }
+  end
+  Mail.deliver do
+    from    opts[:from]
+    to      opts[:to]
+    subject opts[:subject]
+    body    job_output
+  end
+end
+puts job_output
