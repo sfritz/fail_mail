@@ -1,3 +1,5 @@
+**Update**: Turns out I'm not the first person to be frustrated by cron emails.  Try `chronic` from [moreutils](https://joeyh.name/code/moreutils/), or [cronic](http://habilis.net/cronic/), or [shush](http://web.taranis.org/shush/), or [cronwrap](http://www.uow.edu.au/~sah/cronwrap.html).  
+
 ## fail_mail
 
 Wraps your scripts and emails you when they fail.  Useful for cron.
